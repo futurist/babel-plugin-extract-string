@@ -6,6 +6,10 @@ export default function ({types: t}) {
     visitor: {
       StringLiteral: {
         enter (path, state) {
+          // console.log(Object.keys(path), path.scope.path.node.type)
+          var programNode = path.scope.path.node
+          var arr = programNode._extractStringArr
+          if(!Array.isArray(arr)) throw Error('cannot get program node store')
           var name = state.opts.name
           if(!name) return
           arr.push(path.node.value)
@@ -13,8 +17,13 @@ export default function ({types: t}) {
         }
       },
       Program: {
+        enter (path, state) {
+          path.node._extractStringArr = []
+        },
         exit (path, state) {
-          path.node._resultArr = arr
+          var file = state.opts.file
+          if(!file) return
+          fs.writeFileSync(file, JSON.stringify(path.node._extractStringArr), 'utf8')
         }
       }
     }
