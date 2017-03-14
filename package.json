@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-extract-string",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Babel plugin to extract string from js source file then save into array",
   "main": "src/index.js",
   "scripts": {
