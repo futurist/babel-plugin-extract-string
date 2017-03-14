@@ -5,25 +5,27 @@ module.exports = function ({types: t}) {
     visitor: {
       StringLiteral: {
         enter: function (path, state) {
+          // filename : state.file.opts.filename
           if(/ObjectProperty/i.test(path.parent.type)) return
           // console.log(Object.keys(path), path.scope.path.node.type)
-          var arr = state.opts.store
+          var arr = state._store
           if(!Array.isArray(arr)) throw Error('cannot get store')
           var name = state.opts.name
           var str = path.node.value
-          if(!name || str=='use strict') return
+          if(!name || str.trim()=='use strict') return
           arr.push(str)
           path.replaceWith(t.memberExpression(t.identifier(name), t.numericLiteral(arr.length-1), true))
         }
       },
       Program: {
         enter: function (path, state) {
-          state.opts.store = state.opts.store || []
+          state._store = state._store || []
         },
         exit: function (path, state) {
+          state.file.metadata._store = state._store
           var file = state.opts.file
           if(!file) return
-          fs.writeFileSync(file, JSON.stringify(state.opts.store), 'utf8')
+          fs.writeFileSync(file, JSON.stringify(state._store), 'utf8')
         }
       }
     }
