@@ -22,6 +22,11 @@ describe('Babel Plugin test', function () {
     assert.equal(a.code, `var d = abc[0];b = abc[1];c = abc[0];`)
     assert.deepEqual(a.metadata._store, [ 'dd', 'aa' ])
 
+    // empty strings
+    var a = transform(`var d ='dd'; b=''; c='dd';`, babelTranslationOptions({name: 'abc'}))
+    assert.equal(a.code, `var d = abc[0];b = '';c = abc[0];`)
+    assert.deepEqual(a.metadata._store, [ 'dd' ])
+
     // don't touch ObjectProperty
     var a = transform(`var d = {'aaa': 123};`, babelTranslationOptions({name: 'abc'}))
     assert.equal(a.code, `var d = { 'aaa': 123 };`)

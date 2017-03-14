@@ -18,7 +18,7 @@ module.exports = function ({types: t}) {
           if(!Array.isArray(arr)) throw Error('cannot get store')
           var name = state.opts.name
           var str = path.node.value
-          if(!name || str.trim()=='use strict') return
+          if(!name || !str || str.trim()=='use strict') return
           var index = addToSet(arr, str)
           path.replaceWith(t.memberExpression(t.identifier(name), t.numericLiteral(index), true))
         }
