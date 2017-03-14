@@ -12,7 +12,9 @@ module.exports = function ({types: t}) {
       StringLiteral: {
         enter: function (path, state) {
           // filename : state.file.opts.filename
-          if(/ObjectProperty/i.test(path.parent.type)) return
+          if ((path.parentKey || path.key)=='key') {
+            return
+          }
           // console.log(Object.keys(path), path.scope.path.node.type)
           var arr = state._store
           if(!Array.isArray(arr)) throw Error('cannot get store')

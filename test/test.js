@@ -28,9 +28,9 @@ describe('Babel Plugin test', function () {
     assert.deepEqual(a.metadata._store, [ 'dd' ])
 
     // don't touch ObjectProperty
-    var a = transform(`var d = {'aaa': 123};`, babelTranslationOptions({name: 'abc'}))
-    assert.equal(a.code, `var d = { 'aaa': 123 };`)
-    assert.deepEqual(a.metadata._store, [])
+    var a = transform(`var d = {'aaa': '123'};`, babelTranslationOptions({name: 'abc'}))
+    assert.equal(a.code, `var d = { 'aaa': abc[0] };`)
+    assert.deepEqual(a.metadata._store, ['123'])
   })
   it('test string saved to file', function () {
     const file = 'abc.json'
