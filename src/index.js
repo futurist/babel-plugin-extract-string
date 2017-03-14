@@ -1,5 +1,11 @@
 var fs = require('fs')
 
+function addToSet(arr, val) {
+  var index = arr.indexOf(val)
+  if(index<0) return arr.push(val)-1
+  return index
+}
+
 module.exports = function ({types: t}) {
   return {
     visitor: {
@@ -13,8 +19,8 @@ module.exports = function ({types: t}) {
           var name = state.opts.name
           var str = path.node.value
           if(!name || str.trim()=='use strict') return
-          arr.push(str)
-          path.replaceWith(t.memberExpression(t.identifier(name), t.numericLiteral(arr.length-1), true))
+          var index = addToSet(arr, str)
+          path.replaceWith(t.memberExpression(t.identifier(name), t.numericLiteral(index), true))
         }
       },
       Program: {
