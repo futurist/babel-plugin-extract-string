@@ -1,13 +1,13 @@
 {
   "name": "babel-plugin-extract-string",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Babel plugin to extract string from js source file then save into array",
   "main": "src/index.js",
-  "scripts": {
-    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register"
+  "directories": {
+    "test": "test"
   },
-  "author": "James Yang <jamesyang999@gmail.com>",
-  "license": "MIT",
+  "dependencies": {
+  },
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-core": "^6.3.21",
@@ -16,5 +16,28 @@
     "babel-register": "^6.3.13",
     "cross-env": "^3.1.4",
     "mocha": "^3.2.0"
-  }
+  },
+  "scripts": {
+    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/futurist/babel-plugin-extract-string.git"
+  },
+  "keywords": [
+    "babel",
+    "plugin",
+    "extract",
+    "string",
+    "compress",
+    "string",
+    "get",
+    "string"
+  ],
+  "author": "James Yang <jamesyang999@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/futurist/babel-plugin-extract-string/issues"
+  },
+  "homepage": "https://github.com/futurist/babel-plugin-extract-string#readme"
 }
