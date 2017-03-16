@@ -40,4 +40,10 @@ describe('Babel Plugin test', function () {
     assert.deepEqual(fs.readFileSync(file, 'utf8'), JSON.stringify([ 'aaa', 'bbb' ]))
     fs.unlink(file, e=>e)
   })
+  it('test minLength option', function () {
+    const code = `var d = 'aaa'; d+='bbbc'; d+='bbccdd'`
+    const a = transform(code, babelTranslationOptions({name: 'abc', minLength:4}))
+    assert.equal(a.code, `var d = 'aaa';d += abc[0];d += abc[1];`)
+    assert.deepEqual(a.metadata._store, ['bbbc', 'bbccdd'])
+  })
 })
